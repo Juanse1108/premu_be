@@ -3,6 +3,7 @@ import cors from 'cors';
 import connectDB from './config/database';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import formRoutes from './routes/formRoutes';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api', userRoutes);
+app.use('/api', formRoutes);
 
 connectDB();
 
