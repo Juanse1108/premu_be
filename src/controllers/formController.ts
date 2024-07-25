@@ -17,13 +17,11 @@ export const getFormData = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const external = req.query.external as string;
+  const external = isBooleanString(req.query.external as string);
 
   try {
     const users =
-      external !== undefined
-        ? await fetchExternalData()
-        : await fetchDatabaseData();
+      external === true ? await fetchExternalData() : await fetchDatabaseData();
     res.status(200).json(users);
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -32,9 +30,8 @@ export const getFormData = async (
 };
 
 // Función para convertir el query param a booleano
-const parseBoolean = (value: string | undefined): boolean | undefined => {
-  if (value === undefined) return undefined;
-  return value.toLowerCase() === "true";
+const isBooleanString = (value: string | undefined): boolean | undefined => {
+  return value === "true" ? true : value === "false" ? false : undefined;
 };
 
 // Función para obtener datos con apicall
