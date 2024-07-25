@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const secret = 'your_jwt_secret_key'; // Debe ser una clave secreta segura y almacenada de manera segura (por ejemplo, en variables de entorno)
+const secret = process.env.JWT_TOKEN as string;
 
 export const generateToken = (userId: string) => {
   return jwt.sign({ userId }, secret, { expiresIn: '1h' });

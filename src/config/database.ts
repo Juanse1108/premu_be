@@ -1,8 +1,13 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const mongoURI = process.env.MONGO_URI as string;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://admin:admin133@premudb.759ktgo.mongodb.net/?retryWrites=true&w=majority&appName=premudb');
+    await mongoose.connect(mongoURI);
     console.log('MongoDB Connected');
   } catch (error) {
     console.error('MongoDB connection error:', error);
