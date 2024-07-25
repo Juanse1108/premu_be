@@ -4,7 +4,12 @@ import { generateToken } from '../config/jwt';
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { email, password, firstName, lastName, identification, idType, department, city, address, phone, comments, incidentDate } = req.body;
+    const { email, password, confirmPassword, firstName, lastName, phone } = req.body;
+
+    // Verifica si las contraseñas coinciden
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: 'Passwords do not match' });
+    }
 
     // Verifica si el email ya existe
     const existingUser = await UserModel.findOne({ email });
@@ -17,14 +22,7 @@ export const register = async (req: Request, res: Response) => {
       password,
       firstName,
       lastName,
-      identification,
-      idType,
-      department,
-      city,
-      address,
-      phone,
-      comments,
-      incidentDate
+      phone
     });
 
     await user.save();
@@ -55,14 +53,7 @@ export const login = async (req: Request, res: Response) => {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        identification: user.identification,
-        idType: user.idType,
-        department: user.department,
-        city: user.city,
-        address: user.address,
-        phone: user.phone,
-        comments: user.comments,
-        incidentDate: user.incidentDate
+        phone: user.phone
       },
       token
     });
