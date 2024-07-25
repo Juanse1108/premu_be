@@ -8,7 +8,7 @@ const app = express();
 
 // Configurar CORS
 const corsOptions = {
-  origin: 'https://jotaks.github.io/Hackathon-TalentoTech/',
+  origin: 'https://jotaks.github.io',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
